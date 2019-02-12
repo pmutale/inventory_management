@@ -89,6 +89,7 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+
 def read_pgpass(dbname, host=None, port=None, engine=None, env=None):
     """
     Intends to read the .pgpass file stored on the local environment. Its the intentions
@@ -125,11 +126,7 @@ def read_pgpass(dbname, host=None, port=None, engine=None, env=None):
     )
 
     try:
-        pgpass = (
-            os.path.join(home_path, ".pgpass")
-            if not "dev" in env
-            else os.path.join(BASE_DIR, ".secrets/.pgpass")
-        )
+        pgpass = os.path.join(home_path, ".pgpass")
         pgpass_lines = open(pgpass).read().split()
     except IOError:
         # Print instructions

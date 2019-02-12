@@ -8,7 +8,6 @@ DATABASES = {
     'default':
         read_pgpass(
             'inventory',
-            env='dev',
             host='localhost',
             engine='django.db.backends.postgresql_psycopg2')
 }
