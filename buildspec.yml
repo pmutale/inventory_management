@@ -2,9 +2,9 @@ version: 0.2
 
 env:
   variables:
-    PYTHON_PATH: "/usr/lib/python/3.6"
+   # PYTHON_PATH: "/usr/lib/python/3.6"
   parameter-store:
-    LOGIN_PASSWORD: "dockerLoginPassword"
+   # LOGIN_PASSWORD: "dockerLoginPassword"
 
 phases:
   install:
