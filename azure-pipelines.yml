@@ -10,10 +10,11 @@ pool:
   vmImage: 'Ubuntu-18.10'
 
 steps:
-- script: echo Hello, world!
-  displayName: 'Run a one-line script'
+- script: |
+    pip install -r requirements.txt
+  displayName: 'Install Requirements'
 
 - script: |
-    echo Add other tasks to build, test, and deploy your project.
-    echo See https://aka.ms/yaml
-  displayName: 'Run a multi-line script'
+    python -m pip install flake8
+    flake8 .
+  displayName: 'Run lint tests'
