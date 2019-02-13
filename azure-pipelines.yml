@@ -27,6 +27,10 @@ steps:
       print('Found Django project in', project_location)
       print('##vso[task.setvariable variable=projectRoot]{}'.format(project_location))
 - script: |
+    touch ~/.pgpass
+    echo 'localhost:5432:inventory:mwebaza:mwebaza:True' > ~/.pgpass
+  displayName: 'Create .pgpass'
+- script: |
     python -m pip install --upgrade pip setuptools wheel django
     pip install -r requirements.txt
     pip install unittest-xml-reporting
