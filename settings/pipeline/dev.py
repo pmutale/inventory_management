@@ -1,16 +1,10 @@
 from settings.pipeline.base import *
 
+import django_heroku
+
 ALLOWED_HOSTS = ["*"]
 
 DEBUG = True
-
-DATABASES = {
-    'default':
-        read_pgpass(
-            'inventory',
-            host='localhost',
-            engine='django.db.backends.postgresql_psycopg2')
-}
 
 MEDIA_URL = "/media/"
 
@@ -22,3 +16,6 @@ WEBPACK_LOADER = {
         'STATS_FILE': os.path.join(BASE_DIR, 'webpack-stats.json'),
     }
 }
+
+django_heroku.settings(locals())
+
