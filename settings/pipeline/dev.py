@@ -1,6 +1,6 @@
 from settings.pipeline.base import *
 
-import django_heroku
+
 
 ALLOWED_HOSTS = ["*"]
 
@@ -17,5 +17,5 @@ WEBPACK_LOADER = {
     }
 }
 
-django_heroku.settings(locals())
+
 
