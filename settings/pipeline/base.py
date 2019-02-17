@@ -9,7 +9,17 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
 
     'theme',
+    'access_control',
+
+    #ThirdParty
+    'sass_processor',
+    'sekizai',
+    'sorl.thumbnail',
+    'rest_framework',
+    'webpack_loader',
 ]
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -23,6 +33,24 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'inventory.urls'
 
+SASS_PRECISION = 8
+
+SASS_PROCESSOR_ROOT = STATIC_ROOT
+
+STATICFILES_FINDERS = [
+    'django.contrib.staticfiles.finders.FileSystemFinder',
+    'django.contrib.staticfiles.finders.AppDirectoriesFinder',
+    'sass_processor.finders.CssFinder',
+]
+
+STATICFILES_DIRS = [
+    ('node_modules', '/node_modules/'),
+]
+#
+STATIC_URL = '/static/'
+
+NODE_MODULES_URL = STATIC_URL + 'node_modules/'
+
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -34,6 +62,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'sekizai.context_processors.sekizai',
             ],
         },
     },
@@ -206,8 +235,7 @@ LOGGING = {
         },
         "requesttimer": {"level": "INFO", "propagate": True, "handlers": ["timerfile"]},
         "": {"handlers": ["file"], "level": "DEBUG", "propagate": True},
-        "azlcms": {"handlers": ["file"], "level": "DEBUG", "propagate": True},
-        "mail_task": {"handlers": ["file"], "level": "DEBUG", "propagate": True},
+        "inventory": {"handlers": ["file"], "level": "DEBUG", "propagate": True},
     },
 }
 
@@ -216,4 +244,21 @@ LOG_LEVELS = (
     ("WARNING", "Warning"),
     ("ERROR", "Error"),
     ("EXCEPTION", "Exception"),
+)
+
+REST_FRAMEWORK = {
+    "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.TokenAuthentication",
+        "rest_framework.authentication.SessionAuthentication",
+    ),
+    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+}
+
+THUMBNAIL_HIGH_RESOLUTION = True
+
+THUMBNAIL_PROCESSORS = (
+    "easy_thumbnails.processors.colorspace",
+    "easy_thumbnails.processors.autocrop",
+    "filer.thumbnail_processors.scale_and_crop_with_subject_location",
+    "easy_thumbnails.processors.filters",
 )
