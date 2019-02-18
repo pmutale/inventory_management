@@ -31,7 +31,7 @@ config.plugins = config.plugins.concat([
 
 ]);
 
-config.output.publicPath = "https://i-development.herokuapp.com/staticfiles/bundles/";
+config.output.publicPath = "https://i-development.herokuapp.com/static/bundles/";
 
 config.optimization.minimizer.push(
   new UglifyJsPlugin({
