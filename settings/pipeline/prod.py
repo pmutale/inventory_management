@@ -2,8 +2,6 @@ from settings.pipeline.base import *
 
 import django_heroku
 
-DEBUG = False
-
 WEBPACK_LOADER = {
     'DEFAULT': {
         'BUNDLE_DIR_NAME': 'bundles/',
