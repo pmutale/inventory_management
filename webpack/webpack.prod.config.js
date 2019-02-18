@@ -7,7 +7,7 @@ const OptimizeCSSAssetsPlugin = require("optimize-css-assets-webpack-plugin");
 
 config.mode = "production";
 
-config.output.path = require("path").resolve("static/bundles");
+config.output.path = require("path").resolve("staticfiles/bundles");
 
 config.entry = {
   // hotLoader: 'webpack/hot/dev-server',
@@ -31,7 +31,7 @@ config.plugins = config.plugins.concat([
 
 ]);
 
-config.output.publicPath = "https://i-development.herokuapp.com/static/bundles/";
+config.output.publicPath = "https://i-development.herokuapp.com/staticfiles/bundles/";
 
 config.optimization.minimizer.push(
   new UglifyJsPlugin({
