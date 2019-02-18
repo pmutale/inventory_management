@@ -9,7 +9,3 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()]
 )
 
-
-# STATICFILES_DIRS = (
-#     os.path.join(BASE_DIR, 'assets'),
-# )
