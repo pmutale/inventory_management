@@ -10,5 +10,4 @@ sentry_sdk.init(
 )
 
 
-STATICFILES_STORAGE = 'theme.storage.WhiteNoiseStaticFilesStorage'
 
