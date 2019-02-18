@@ -9,3 +9,6 @@ sentry_sdk.init(
     integrations=[DjangoIntegration()]
 )
 
+
+STATICFILES_STORAGE = 'theme.storage.WhiteNoiseStaticFilesStorage'
+
