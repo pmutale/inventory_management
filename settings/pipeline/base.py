@@ -44,7 +44,7 @@ STATICFILES_FINDERS = [
 ]
 
 STATICFILES_DIRS = [
-    ('node_modules', '/node_modules/'),
+    # ('node_modules', '/node_modules/'),
 ]
 #
 STATIC_URL = '/static/'
