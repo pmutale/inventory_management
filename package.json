@@ -36,10 +36,13 @@
   },
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "webpack --config webpack/webpack.local.config.js --progress --colors",
-    "build-production": "webpack --config webpack/webpack.prod.config.js --progress --colors",
+    "build-local": "webpack --config webpack/webpack.local.config.js --progress --colors",
+    "build": "webpack --config webpack/webpack.prod.config.js --progress",
+    "heroku-postbuild": "webpack --config webpack/webpack.prod.config.js --progress --colors",
+    "postinstall": "webpack --config webpack/webpack.prod.config.js --progress --colors",
     "watch": "node server.js"
   },
+  "heroku-run-build-script": true,
   "repository": {
     "type": "git",
     "url": "git+https://github.com/pmutale/inventory_management.git"
