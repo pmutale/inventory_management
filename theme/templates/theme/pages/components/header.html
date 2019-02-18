@@ -1,0 +1,13 @@
+{% load sass_tags sekizai_tags static %}
+
+<div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 mb-3 bg-white border-bottom box-shadow">
+    <h5 class="my-0 mr-md-auto font-weight-normal">
+        <img src="{% static 'theme/images/logo.png'  %}" width="30" height="27">
+    </h5>
+    <nav class="container d-flex flex-column flex-md-row justify-content-between">
+        <a class="p-2">{% block item %} [ Item in question] {% endblock %}</a>
+        <a class="p-2">{% block add_item %} [ Add Item ] {% endblock %}</a>
+        <a class="p-2">{% block user %} {% if user.is_authenticated %} {{ user }} {% endif %} {% endblock %}</a>
+        <a class="logout">{% block logout %} [ logout ] {% endblock %}</a>
+    </nav>
+</div>

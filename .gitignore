@@ -103,3 +103,7 @@ venv.bak/
 # mypy
 .mypy_cache/
 .idea/
+node_modules/
+static/
+package-lock.json
+webpack-stats.json

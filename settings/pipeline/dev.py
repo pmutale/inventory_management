@@ -1,7 +1,5 @@
 from settings.pipeline.base import *
 
-
-
 ALLOWED_HOSTS = ["*"]
 
 DEBUG = True
@@ -17,5 +15,11 @@ WEBPACK_LOADER = {
     }
 }
 
-
-
+DATABASES = {
+    'default':
+        read_pgpass(
+            'inventory',
+            env='dev',
+            host='localhost',
+            engine='django.db.backends.postgresql_psycopg2')
+}
