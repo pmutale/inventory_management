@@ -9,6 +9,12 @@ config.mode = "production";
 
 config.output.path = require("path").resolve("static/bundles");
 
+config.entry = {
+  // hotLoader: 'webpack/hot/dev-server',
+  login: "../frontend/src/react/app",
+  semantic: "semantic-ui-css/semantic.min.css"
+};
+
 config.plugins = config.plugins.concat([
   new BundleTracker({filename: "./webpack-stats-prod.json"}),
   new MiniCssExtractPlugin({
@@ -24,6 +30,8 @@ config.plugins = config.plugins.concat([
     }}),
 
 ]);
+
+config.output.publicPath = "https://i-development.herokuapp.com/static/bundles/";
 
 config.optimization.minimizer.push(
   new UglifyJsPlugin({
