@@ -33,5 +33,6 @@ module.exports = {
 
   resolve: {
     extensions: [".js", ".jsx", ".scss", ".sass"],
+    // alias: {'react-dom': '@hot-loader/react-dom'}
   }
 }

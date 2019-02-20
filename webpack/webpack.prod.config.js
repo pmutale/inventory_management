@@ -10,7 +10,6 @@ config.mode = "production";
 config.output.path = require("path").resolve("staticfiles/bundles");
 
 config.entry = {
-  // hotLoader: 'webpack/hot/dev-server',
   login: "../frontend/src/react/app",
   semantic: "semantic-ui-css/semantic.min.css"
 };

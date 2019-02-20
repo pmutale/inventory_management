@@ -7,7 +7,7 @@ const config = require("./webpack.base.config.js");
 config.mode = "development";
 // Use webpack dev server
 config.entry = {
-  // hotLoader: 'webpack/hot/dev-server',
+  hotLoader: 'webpack/hot/dev-server',
   login: "../frontend/src/react/app",
   semantic: "semantic-ui-css/semantic.min.css"
 };
