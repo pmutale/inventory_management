@@ -19,6 +19,7 @@ INSTALLED_APPS = [
     'sorl.thumbnail',
     'rest_framework',
     'webpack_loader',
+    'rest_framework.authtoken',
 ]
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
@@ -93,6 +94,9 @@ AUTH_PASSWORD_VALIDATORS = [
     },
     {
         'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator',
+        'OPTIONS': {
+            'min_length': 8
+        }
     },
     {
         'NAME': 'django.contrib.auth.password_validation.CommonPasswordValidator',
@@ -102,11 +106,24 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+LOGIN_TO_REDIRECT_URL = 'theme:default'
+
+LOGOUT_TO_REDIRECT_URL = 'theme:default'
+
+PASSWORD_HASHERS = (
+    'django.contrib.auth.hashers.PBKDF2PasswordHasher',
+    'django.contrib.auth.hashers.PBKDF2SHA1PasswordHasher',
+    'django.contrib.auth.hashers.BCryptPasswordHasher',
+    'django.contrib.auth.hashers.SHA1PasswordHasher',
+    'django.contrib.auth.hashers.MD5PasswordHasher',
+    'django.contrib.auth.hashers.CryptPasswordHasher',
+)
+
 
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'nl'
 
 TIME_ZONE = 'UTC'
 
@@ -169,9 +186,9 @@ def read_pgpass(dbname, host=None, port=None, engine=None, env=None):
             for line in pgpass_lines:
                 words = line.strip().split(":")
                 if (
-                    words[2] == match
-                    and words[0] == (host or words[0])
-                    and words[1] == (port or words[1])
+                        words[2] == match
+                        and words[0] == (host or words[0])
+                        and words[1] == (port or words[1])
                 ):
                     return dict(
                         ENGINE=engine,
@@ -250,10 +267,13 @@ LOG_LEVELS = (
 
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
+        "rest_framework.authentication.BasicAuthentication",
         "rest_framework.authentication.TokenAuthentication",
         "rest_framework.authentication.SessionAuthentication",
     ),
-    "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
+    "DEFAULT_PERMISSION_CLASSES": (
+        "rest_framework.permissions.IsAuthenticated",
+    ),
 }
 
 THUMBNAIL_HIGH_RESOLUTION = True

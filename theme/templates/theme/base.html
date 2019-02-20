@@ -4,7 +4,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.86, maximum-scale=3.0, minimum-scale=0.86">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Inventory: {% block title %}{% endblock %}</title>
     {% render_block "css" %}
     {% render_bundle 'semantic' 'css' %}
@@ -12,7 +12,7 @@
 </head>
 <body>
 {% if user.is_authenticated %}
-{% include 'theme/pages/components/header.html' %}
+    {% include 'theme/pages/components/header.html' %}
     <div class="container">
 
     <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
@@ -27,11 +27,7 @@
     {% include 'theme/pages/components/footer.html' %}
     </div>
 {% else %}
-    <div class="text-center mt-5 container h-100 align-content-center">
-            <img class="mb-3" src="{% static 'theme/images/logo.png' %}" height=67 width=78 >
-            <h1 class="mb-3 font-weight-normal">Inloggen</h1>
-            <div class="row h-50 justify-content-center align-items-center" id="portal"></div>
-    </div>
+    {% include 'theme/pages/login.html' %}
 {% endif %}
 {% render_block "js" %}
 {% render_bundle 'login' 'js' %}
