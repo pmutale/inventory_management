@@ -1,6 +1,7 @@
 import React from "react";
-import { Responsive, Button, Form, Grid, Header, Message, Segment, Icon } from "semantic-ui-react";
+import {Responsive, Button, Form, Grid, Header, Message, Segment, Icon, Modal} from "semantic-ui-react";
 import Cookies from "js-cookie";
+import Register from "./Register";
 
 
 class LoginForm extends React.Component {
@@ -14,10 +15,14 @@ class LoginForm extends React.Component {
       loginErrors: {
         error: "",
         status: false
+      },
+      register: {
+        show: false
       }
     };
     this.onSubmit = this.onSubmit.bind(this);
     this.handleChange = this.handleChange.bind(this)
+    this.showRegister = this.showRegister.bind(this)
   }
 
   onSubmit () {
@@ -54,60 +59,67 @@ class LoginForm extends React.Component {
     this.setState(loginCreditials);
   }
 
+  showRegister () {
+    const loginHeader = document.getElementById('login-header');
+    loginHeader.innerHTML = 'Registreren';
+    const register = this.state.register;
+    register.show = true;
+    this.setState(register)
+  }
   render() {
-    const { loginCreditials: { username, password }, loginErrors: { status, error } } = this.state;
+    const {
+      loginCreditials: { username, password },
+      loginErrors: { status, error },
+      register: { show }
+    } = this.state;
+
     const formStyle = {
       width: '90%',
       maxWidth: '420px',
       margin: '0 auto',
-      // position: 'absolute',
-      // transform: 'translate(-50%, -50%)',
-      // left: '50%',
-      // top: '50%',
     };
     return (
       <div style={formStyle}>
         <Responsive as={Grid} centered>
           <Grid.Column>
-            {status ? <div className={'mb-4 alert alert-danger'}>{error}</div> : null}
-            <Form size="small">
-                <Form.Input
-                  value={username}
-                  error={status}
-                  fluid
-                  onChange={this.handleChange}
-                  icon="user"
-                  name='username'
-                  iconPosition="left"
-                  placeholder="Gebruikersnaam"/>
-                <Form.Input
-                  error={status}
-                  fluid
-                  onChange={this.handleChange}
-                  value={password}
-                  icon="lock"
-                  name="password"
-                  iconPosition="left"
-                  placeholder="Wachtwoord"
-                  type="password"
-                />
+            {status && !show ? <div className={'mb-4 alert alert-danger'}>{error}</div> : null}
+            {show ? <Register/> :<Form size="small">
+              <Form.Input
+                value={username}
+                error={status}
+                fluid
+                onChange={this.handleChange}
+                icon="user"
+                name='username'
+                iconPosition="left"
+                placeholder="Gebruikersnaam"/>
+              <Form.Input
+                error={status}
+                fluid
+                onChange={this.handleChange}
+                value={password}
+                icon="lock"
+                name="password"
+                iconPosition="left"
+                placeholder="Wachtwoord"
+                type="password"
+              />
 
-                <Button
-                  className={'btn btn-lg btn-primary btn-block'}
-                  // positive
-                  fluid
-                  color={'orange'}
-                  onClick={this.onSubmit}
-                  size="large">
-                  Inloggen
-                </Button>
-              {/*</Segment>*/}
-            </Form>
-            <Message info>
-              Nieuw? Registereren hier  <a href="#">Sign Up</a>
-            </Message>
+              <Button
+                className={'btn btn-lg btn-primary btn-block'}
+                // positive
+                fluid
+                color={'orange'}
+                onClick={this.onSubmit}
+                size="large">
+                Aanmelden
+              </Button>
+              <Message info>
+                Nieuw? Een eigen account aanmaken
+                <a onClick={this.showRegister} href="#"> hier </a>
+              </Message>
+            </Form>}
           </Grid.Column>
-        {/*</Grid>*/}
         </Responsive>
       </div>
     );
