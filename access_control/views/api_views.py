@@ -12,8 +12,14 @@ class LoginView(APIView):
         username = request.data.get("username")
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
+<<<<<<< Updated upstream
         # try:
         if user:
+=======
+
+        if user:
+            login(request, user)
+>>>>>>> Stashed changes
             try:
                 response["token"] = user.auth_token.key
                 response["status"] = status.HTTP_200_OK
