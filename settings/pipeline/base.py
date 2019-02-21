@@ -12,6 +12,7 @@ INSTALLED_APPS = [
 
     'theme',
     'access_control',
+    'stock',
 
     #ThirdParty
     'sass_processor',
