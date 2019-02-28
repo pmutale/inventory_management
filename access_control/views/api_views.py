@@ -10,7 +10,7 @@ class LoginView(APIView):
     permission_classes = ()
 
     def post(self, request):
-        response = {"token": False, "status": False, "error": False, 'user': None}
+        response = {"token": False, "status": False, "error": False, "user": None}
         username = request.data.get("username")
         password = request.data.get("password")
         user = authenticate(username=username, password=password)
@@ -25,7 +25,10 @@ class LoginView(APIView):
                 response["error"] = str(e)
                 return JsonResponse(response)
         else:
-            response["error"] = _('Geen juist wachtwoord of gebruikersnaam opgegeven'
-                if not username or not password else _('Verkeerde inloggegevens'))
+            response["error"] = _(
+                "Geen juist wachtwoord of gebruikersnaam opgegeven"
+                if not username or not password
+                else _("Verkeerde inloggegevens")
+            )
             response["status"] = status.HTTP_400_BAD_REQUEST
             return JsonResponse(response)

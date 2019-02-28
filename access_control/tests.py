@@ -14,16 +14,19 @@ class TestAccessControl(APITestCase):
     def setup_user():
         user = get_user_model()
         return user.objects.create_user(
-            'test',
-            email='testuser@test.com',
-            password='test'
+            "test", email="testuser@test.com", password="test"
         )
 
     def test_list(self):
-        request = self.factory.get(self.uri,
-                                   HTTP_AUTHORIZATION='Token {}'.format(self.token.key))
+        request = self.factory.get(
+            self.uri, HTTP_AUTHORIZATION="Token {}".format(self.token.key)
+        )
         request.user = self.user
         response = self.view(request)
-        self.assertEqual(response.status_code, 200,
-                         'Expected Response Code 200, received {0} instead.'
-                         .format(response.status_code))
+        self.assertEqual(
+            response.status_code,
+            200,
+            "Expected Response Code 200, received {0} instead.".format(
+                response.status_code
+            ),
+        )

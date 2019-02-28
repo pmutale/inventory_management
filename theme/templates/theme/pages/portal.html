@@ -1,10 +1,6 @@
-{% extends "theme/base.html" %}
-{% load static sekizai_tags i18n %}
+{% extends "theme/base_homepage.html" %}
+{% load static sekizai_tags i18n cms_tags %}
 
-{% block title %} Portal {% endblock title %}
-{% block logo %}
-    <img src="{% static 'theme/images/logo.png'  %}" width="30" height="27" alt="Developer.nl">
-{% endblock %}
 {% block content %}
     <div>
         <h5 class="font-weight-bold">{% trans "Out of stock" %}</h5>

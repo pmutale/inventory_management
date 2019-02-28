@@ -1,3 +1,5 @@
 from django.urls import path
 
-urlpatterns = [path("")]
+from stock.views import Inventories
+
+urlpatterns = [path("", Inventories.as_view(), name="inventory")]

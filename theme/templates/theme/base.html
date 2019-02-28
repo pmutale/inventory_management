@@ -1,4 +1,4 @@
-{% load sekizai_tags sass_tags static %}
+{% load sekizai_tags sass_tags static cms_tags %}
 {% load render_bundle from webpack_loader %}
 
 <!DOCTYPE html>
@@ -6,26 +6,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Inventory: {% block title %}{% endblock %}</title>
+
+    <title>Inventory: {% page_attribute "page_title" %}</title>
     {% render_block "css" %}
     {% render_bundle 'semantic' 'css' %}
     <link href="{% sass_src 'theme/main.scss' %}" rel="stylesheet" type="text/css">
 </head>
 <body>
+{% cms_toolbar %}
+{% if user.is_authenticated %}
     {% include 'theme/pages/components/header.html' %}
-    <div class="container">
-    {% render_block "recent_items" %}
-    {% addtoblock "recent_items" %} {% include 'stock/pages/recent.html' %} {% endaddtoblock %}
-    {% if user.is_authenticated %}
-        <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
-            <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
-                {% block content %} {% endblock %}
-            </div>
-            <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
-                {% block aside %} {% endblock %}
-            </div>
-        </div>
-    </div>
+    {% block portal  %} {% endblock %}
     {% include 'theme/pages/components/footer.html' %}
 {% else %}
     {% include 'theme/pages/login.html' %}

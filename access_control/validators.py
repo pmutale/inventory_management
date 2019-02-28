@@ -15,12 +15,18 @@ class ValidatePasswordStrength:
         min_length = 8
 
         if len(password) < min_length:
-            raise serializers.ValidationError(_(F'Password must be at least {min_length} characters long.'))
+            raise serializers.ValidationError(
+                _(f"Password must be at least {min_length} characters long.")
+            )
 
         # check for digit
         if not any(char.isdigit() for char in password):
-            raise serializers.ValidationError(_('Password must contain at least 1 digit.'))
+            raise serializers.ValidationError(
+                _("Password must contain at least 1 digit.")
+            )
 
         # check for letter
         if not any(char.isalpha() for char in password):
-            raise serializers.ValidationError(_('Password must contain at least 1 letter.'))
+            raise serializers.ValidationError(
+                _("Password must contain at least 1 letter.")
+            )
