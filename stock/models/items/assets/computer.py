@@ -3,7 +3,6 @@ import os
 from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import gettext as _
-from djchoices import DjangoChoices, ChoiceItem
 
 from access_control.models import Employee
 from stock.models.items.assets.base import ItemBaseModel
@@ -15,35 +14,36 @@ def get_upload_path(instance, filename):
     )
 
 
-class ComputerQueryset(models.QuerySet):
-    def mac_computers(self):
-        return self.filter(os="macOS")
-
-
-class ComputerManager(models.Manager):
-    def get_queryset(self):
-        return ComputerQueryset(self.model, using=self._db)
-
-    def mac_computers(self):
-        return self.get_queryset().mac_computers()
-
-
 class Details(ItemBaseModel):
     assigned_employee = models.OneToOneField(
-        Employee, on_delete=models.CASCADE, verbose_name=_("Assigned Employee")
+        Employee,
+        on_delete=models.CASCADE,
+        verbose_name=_("Assigned Employee"),
+        null=True,
+        blank=True,
     )
-    assigned_date = models.DateField(verbose_name=_("Date assigned"))
-    returned_date = models.DateField(verbose_name=_("Date returned"))
-    model = models.CharField(max_length=32, null=True, blank=True)
+    assigned_date = models.DateField(
+        verbose_name=_("Date assigned"), null=True, blank=True
+    )
+    returned_date = models.DateField(
+        verbose_name=_("Date returned"), null=True, blank=True
+    )
+    model = models.CharField(max_length=128, null=True, blank=True)
     model_number = models.CharField(
-        verbose_name=_("Model number"), null=True, blank=True
+        verbose_name=_("Model number"), null=True, blank=True, max_length=128
     )
     serial_number = models.CharField(
-        max_length=32, null=True, blank=True, verbose_name=_("Serial number")
+        max_length=128, null=True, blank=True, verbose_name=_("Serial number")
     )
     warrant_expiry_date = models.DateField(
         verbose_name=_("Date of Warrant Expiry"), null=True, blank=True
     )
+
+    class Meta:
+        verbose_name_plural = _("Details")
+
+    def __str__(self):
+        return f"{self.model}-{self.serial_number}"
 
 
 class Image(models.Model):
@@ -64,36 +64,18 @@ class Image(models.Model):
         return f"{self.computer.details.name} - {self.computer.type} - {self.computer.details.serial_number}"
 
 
-class Computer(models.Model):
-    class OsTypesChoices(DjangoChoices):
-        macOS = ChoiceItem("Mac")
-        windowsOS = ChoiceItem("Window")
-
-    class TypeChoices(DjangoChoices):
-        desktop = ChoiceItem("Desktop")
-        laptop = ChoiceItem("Laptop")
-        mobile = ChoiceItem("Mobile")
-        tablet = ChoiceItem("Tablet")
-
-    details = models.ForeignKey(
-        "Details", on_delete=models.CASCADE, related_name="computers"
-    )
-    os = models.CharField(choices=OsTypesChoices)
-    type = models.CharField(choices=TypeChoices)
-
-    computers = ComputerManager()
-
-    def __str__(self):
-        return self.os
+class PeripheralDetails(Details):
+    is_peripheral = models.BooleanField(default=True)
 
 
 class Peripheral(models.Model):
     details = models.ForeignKey(
-        "Details",
+        "PeripheralDetails",
         on_delete=models.CASCADE,
         related_name="peripherals",
         blank=True,
         null=True,
+        verbose_name=_("Peripheral Details"),
     )
     computer = models.ForeignKey(
         "Computer",
@@ -104,4 +86,4 @@ class Peripheral(models.Model):
     )
 
     def __str__(self):
-        return self.details.name
+        return f"{self.details.name} - {self.computer.details.name} - {self.computer.details.serial_number}"

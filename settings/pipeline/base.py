@@ -3,29 +3,61 @@ import sentry_sdk
 from sentry_sdk.integrations.django import DjangoIntegration
 
 INSTALLED_APPS = [
+    'djangocms_admin_style',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',
+    'djangocms_text_ckeditor',
+    'django.contrib.sitemaps',
 
     'theme',
     'access_control',
     'stock',
 
-    #ThirdParty
+    'cms',
+    'menus',
+    'treebeard',
+    'filer',
+    'easy_thumbnails',
+    'mptt',
+
+    'djangocms_link',
+    'djangocms_file',
+    'djangocms_picture',
+    'djangocms_video',
+    'djangocms_googlemap',
+    'djangocms_snippet',
+    'djangocms_style',
+    'djangocms_column',
+
+    # ThirdParty
     'sass_processor',
     'sekizai',
     'sorl.thumbnail',
     'rest_framework',
     'webpack_loader',
     'rest_framework.authtoken',
+    'hvad',
 ]
+
+THUMBNAIL_HIGH_RESOLUTION = True
+
+THUMBNAIL_PROCESSORS = (
+    'easy_thumbnails.processors.colorspace',
+    'easy_thumbnails.processors.autocrop',
+    'filer.thumbnail_processors.scale_and_crop_with_subject_location',
+    'easy_thumbnails.processors.filters'
+)
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 
 MIDDLEWARE = [
+    'django.middleware.cache.UpdateCacheMiddleware',
+    # 'cms.middleware.utils.ApphookReloadMiddleware'
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
@@ -33,6 +65,11 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'cms.middleware.user.CurrentUserMiddleware',
+    'cms.middleware.page.CurrentPageMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
+    'django.middleware.cache.FetchFromCacheMiddleware',
 ]
 
 ROOT_URLCONF = 'inventory.urls'
@@ -53,6 +90,8 @@ STATICFILES_DIRS = [
 #
 STATIC_URL = '/static/'
 
+SITE_ID = 1
+
 NODE_MODULES_URL = STATIC_URL + 'node_modules/'
 
 TEMPLATES = [
@@ -67,13 +106,18 @@ TEMPLATES = [
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
                 'sekizai.context_processors.sekizai',
+                'cms.context_processors.cms_settings'
             ],
         },
     },
 ]
 
-WSGI_APPLICATION = 'inventory.wsgi.application'
+CMS_TEMPLATES = [
+    ('theme/pages/portal.html', 'HomePage template'),
+    ('theme/pages/content.html', 'Content template'),
+]
 
+WSGI_APPLICATION = 'inventory.wsgi.application'
 
 # Database
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
@@ -85,6 +129,10 @@ DATABASES = {
     }
 }
 
+LANGUAGES = [
+    ('en', 'English'),
+    ('nl', 'Nederlands'),
+]
 
 # Password validation
 # https://docs.djangoproject.com/en/2.1/ref/settings/#auth-password-validators
@@ -120,7 +168,6 @@ PASSWORD_HASHERS = (
     'django.contrib.auth.hashers.CryptPasswordHasher',
 )
 
-
 # Internationalization
 # https://docs.djangoproject.com/en/2.1/topics/i18n/
 
@@ -133,7 +180,6 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
-
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/2.1/howto/static-files/
@@ -285,4 +331,3 @@ THUMBNAIL_PROCESSORS = (
     "filer.thumbnail_processors.scale_and_crop_with_subject_location",
     "easy_thumbnails.processors.filters",
 )
-

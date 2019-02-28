@@ -1,0 +1,25 @@
+{% load query thumbnail %}
+
+{% if user.is_authenticated %}
+    {% query category inventory__item__contains=instance.search_field as categories %}
+    <div class="album py-5 mb-5 bg-light">
+        <div class="container">
+            <div class="row">
+                {% for categor in categories %}
+                    <div class="col-md-2">
+                        <div class="card mb-4 box-shadow">
+                            {% thumbnail categor.image "341x227" upscale='True' crop='center' as image %}
+                                <img class="card-img-top"  src="{{ image.url }}" alt="{{ categor.item }}">
+                            {% endthumbnail %}
+                            <div class="card-body">
+                                <h6>{{ categor.name }}</h6>
+                                <p class="card-text">{{ categor.description }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endif %}
