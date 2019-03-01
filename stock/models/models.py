@@ -1,10 +1,8 @@
 from cms.models import CMSPlugin
 from cms.models.fields import PageField
-from cms.plugin_base import CMSPluginBase
 from django.db import models
 from djchoices import DjangoChoices, ChoiceItem
 from django.utils.translation import gettext as _
-from hvad.models import TranslatableModel, TranslatedFields
 
 from stock.models.items.assets.base import CategoryBase
 from stock.models.items.assets.computer import Details, get_upload_path
@@ -89,23 +87,5 @@ class Computer(models.Model):
 
     def __str__(self):
         return (
-            f"{self.details.name} - {self.details.model} - {self.details.model_number}"
+            F"{self.details.name} - {self.details.model} - {self.details.model_number}"
         )
-
-
-# class Image(models.Model):
-#     inventory = models.ForeignKey(
-#         "Inventory",
-#         related_name="images",
-#         on_delete=models.CASCADE,
-#         null=True,
-#         blank=True,
-#     )
-#     file = models.ImageField(blank=True, upload_to=get_upload_path, null=True)
-#     position = models.PositiveSmallIntegerField(default=0)
-#
-#     class Meta:
-#         ordering = ["position"]
-#
-#     def __str__(self):
-#         return f"{self.inventory.details.name} - {self.inventory.type} - {self.inventory.details.serial_number}"

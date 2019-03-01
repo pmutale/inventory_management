@@ -1,9 +1,11 @@
 import logging
 
 from cms import api
-from cms.models import User, Site
+from cms.models import User, Site, Page
 from django.conf import settings
+from django.core import exceptions
 from django.core.management import call_command
+from django.utils.crypto import get_random_string
 from django.core.management.base import BaseCommand
 
 from stock.constants import INVENTORY, image
@@ -67,18 +69,23 @@ class Command(BaseCommand):
         # Run migrations
         call_command("migrate", verbosity=3, interactive=False)
         call_command(
-            "createsuperuser", "--username=pm", "--email=p@p.com", interactive=False
+            "createsuperuser", F"--username={get_random_string}", "--email=p@p.com", interactive=False
         )
 
         # Create Portal Page and Portal Plugins
+        Page.objects.all().delete()
         for item in PAGES:
             title = PAGES[item]["name"]
-            page = api.create_page(
-                title,
-                PAGES[item]["template"],
-                DEFAULT_LANG,
-                reverse_id=PAGES[item]["reverse_id"],
-            )
+            try:
+                page = api.create_page(
+                    title,
+                    PAGES[item]["template"],
+                    DEFAULT_LANG,
+                    reverse_id=PAGES[item]["reverse_id"],
+                )
+            except exceptions.FieldError:
+                continue
+
             placeholder = page.placeholders.get(slot=PAGES[item]["slot"])
             add_plugins_to_page(placeholder, DEFAULT_LANG, child=False, item=title)
             page.set_as_homepage() if PAGES[item]["home"] else None

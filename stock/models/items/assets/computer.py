@@ -9,7 +9,9 @@ from stock.models.items.assets.base import ItemBaseModel
 
 
 def get_upload_path(instance, filename):
-    return os.path.join(f"{instance}/", now().date().strftime("%Y/%m/%d"), filename)
+    return os.path.join(
+        F"media/{instance}/", now().date().strftime("%Y/%m/%d"), filename
+    )
 
 
 class Details(ItemBaseModel):
@@ -41,7 +43,7 @@ class Details(ItemBaseModel):
         verbose_name_plural = _("Details")
 
     def __str__(self):
-        return f"{self.model}-{self.serial_number}"
+        return F"{self.model}-{self.serial_number}"
 
 
 class Image(models.Model):
