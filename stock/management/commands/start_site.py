@@ -1,11 +1,12 @@
 import logging
+import random
+import string
 
 from cms import api
 from cms.models import User, Site, Page
 from django.conf import settings
 from django.core import exceptions
 from django.core.management import call_command
-from django.utils.crypto import get_random_string
 from django.core.management.base import BaseCommand
 
 from stock.constants import INVENTORY, image
@@ -66,10 +67,11 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
 
+        random_string = ''.join(random.sample(string.ascii_letters, 6))
         # Run migrations
         call_command("migrate", verbosity=3, interactive=False)
         call_command(
-            "createsuperuser", F"--username={get_random_string}", "--email=p@p.com", interactive=False
+            "createsuperuser", F"--username={random_string}", "--email=p@p.com", interactive=False
         )
 
         # Create Portal Page and Portal Plugins
