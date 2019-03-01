@@ -1,4 +1,5 @@
 from settings.pipeline.base import *
+import sentry_sdk
 
 import django_heroku
 

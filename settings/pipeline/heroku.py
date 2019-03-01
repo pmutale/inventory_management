@@ -1,4 +1,6 @@
 from settings.pipeline.prod import *
+from sentry_sdk.integrations.django import DjangoIntegration
+
 
 ALLOWED_HOSTS = ["*"]
 
