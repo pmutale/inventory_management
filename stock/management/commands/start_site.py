@@ -67,10 +67,10 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
 
         # Run migrations
-        # call_command("migrate", verbosity=3, interactive=False)
-        # call_command(
-        #     "createsuperuser", "--username=pm", "--email=p@p.com", interactive=False
-        # )
+        call_command("migrate", verbosity=3, interactive=False)
+        call_command(
+            "createsuperuser", "--username=pm", "--email=p@p.com", interactive=False
+        )
 
         # Create Portal Page and Portal Plugins
         for item in PAGES:
@@ -79,7 +79,7 @@ class Command(BaseCommand):
                 title,
                 PAGES[item]["template"],
                 DEFAULT_LANG,
-                # reverse_id=PAGES[item]["reverse_id"],
+                reverse_id=PAGES[item]["reverse_id"],
             )
             placeholder = page.placeholders.get(slot=PAGES[item]["slot"])
             add_plugins_to_page(placeholder, DEFAULT_LANG, child=False, item=title)
@@ -101,13 +101,11 @@ class Command(BaseCommand):
                     add_plugins_to_page(
                         placeholder_child, DEFAULT_LANG, child=True, item=title
                     )
-                    # try:
-                        # target = Page.objects.get(reverse_id='categories')
-                    page.set_tree_node(site=Site.objects.first())
-                    child_page.move_page(target_node=page)
-                        # child_page.save()
-                    # except AssertionError:
-                    #     continue
+                    try:
+                        page.set_tree_node(site=Site.objects.first())
+                        child_page.move_page(target_node=page)
+                    except AssertionError:
+                        continue
 
                     logger.info(f"A child page{child_page} has been created for {page}")
 

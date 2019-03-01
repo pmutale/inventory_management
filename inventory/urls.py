@@ -24,6 +24,7 @@ from django.contrib.sitemaps.views import sitemap
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('theme/', include('theme.urls')),
+    path('stock/', include('stock.urls')),
     path('users/', include('access_control.urls')),
     path('sitemap.xml/', sitemap, {'sitemaps': {'cmspages': CMSSitemap}}),
     path('', include('cms.urls'))

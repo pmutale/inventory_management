@@ -1,7 +1,9 @@
 from django.contrib import admin
 from hvad.admin import TranslatableAdmin
 
-from stock.models import Computer, Category, Inventory, Details
+from stock import models
+from stock.models.items.assets import audio_visual
+
 from stock.models.items.assets.computer import Image, Peripheral, PeripheralDetails
 
 
@@ -20,13 +22,7 @@ class ComputerAdmin(admin.ModelAdmin):
             obj.images.create(file=afile)
 
 
-# class InventoryAdmin(TranslatableAdmin):
-#     list_display = ("get_item_translated",)
-
-
-admin.site.register(Computer, ComputerAdmin)
-# admin.site.register(Category)
-# admin.site.register(Details)
-# admin.site.register(PeripheralDetails)
+admin.site.register(models.Computer, ComputerAdmin)
+admin.site.register(models.Category)
+admin.site.register(audio_visual.AudioVisual)
 admin.site.register(Peripheral)
-# admin.site.register(Inventory)

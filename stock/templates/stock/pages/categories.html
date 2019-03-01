@@ -1,4 +1,4 @@
-{% load query thumbnail %}
+{% load query thumbnail cms_tags i18n sekizai_tags sass_tags static %}
 
 {% if user.is_authenticated %}
     {% query category inventory__item__contains=instance.search_field as categories %}
@@ -15,11 +15,19 @@
                                 <h6>{{ categor.name }}</h6>
                                 <p class="card-text">{{ categor.description }}</p>
                             </div>
+                            <div class="card-footer">
+                                <i class="small add circle icon"></i>
+                                <a href="#"><small class="text-muted">{% trans 'Add item' %}</small></a>
+                            </div>
                         </div>
                     </div>
                 {% endfor %}
             </div>
         </div>
     </div>
+
+    {% addtoblock "css" %}
+        <link rel="stylesheet" href="{% sass_src "theme/stock/categories.scss" %}">
+    {% endaddtoblock %}
 
 {% endif %}

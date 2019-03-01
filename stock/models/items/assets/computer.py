@@ -9,9 +9,7 @@ from stock.models.items.assets.base import ItemBaseModel
 
 
 def get_upload_path(instance, filename):
-    return os.path.join(
-        f"media/{instance}/", now().date().strftime("%Y/%m/%d"), filename
-    )
+    return os.path.join(f"{instance}/", now().date().strftime("%Y/%m/%d"), filename)
 
 
 class Details(ItemBaseModel):

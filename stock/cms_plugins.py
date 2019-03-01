@@ -38,3 +38,18 @@ class CategoriesPlugin(CMSPluginBase):
         categories = Category.objects.all()
         context.update({"category": categories})
         return context
+
+
+@plugin_pool.register_plugin
+class InventoryLatestPlugin(CMSPluginBase):
+    render_template = "stock/pages/inventories/latest.html"
+    cache = False
+    name = _("Latest Inventories")
+
+    def render(self, context, instance, placeholder):
+        context = super(InventoryLatestPlugin, self).render(
+            context, instance, placeholder
+        )
+        latest = Inventory.objects.all()
+        context.update({"latest": latest})
+        return context

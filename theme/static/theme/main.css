@@ -56,6 +56,13 @@ a:hover {
   color: transparent;
   text-decoration: none !important; }
 
+.inventories.container > .row {
+  flex-wrap: nowrap;
+  overflow: hidden; }
+
+.bg-developers {
+  background-color: #ffba6929; }
+
 /*!
  * Bootstrap v4.2.1 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors

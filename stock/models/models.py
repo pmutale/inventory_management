@@ -29,13 +29,13 @@ class Inventory(CMSPlugin):
     def __str__(self):
         return self.item
 
-    def copy_relations(self, oldinstance):
-        self.categories.all().delete()
-
-        for category in oldinstance.categories.all():
-            category.pk = category.id = None
-            category.plugin = self
-            category.save()
+    # def copy_relations(self, oldinstance):
+    #     self.categories.all().delete()
+    #
+    #     for category in oldinstance.categories.all():
+    #         category.pk = category.id = None
+    #         category.plugin = self
+    #         category.save()
 
 
 class Category(CategoryBase):
@@ -57,6 +57,9 @@ class Category(CategoryBase):
         verbose_name_plural = _("Categories")
 
     def __str__(self):
+        return self.name
+
+    def natural_key(self):
         return self.name
 
 

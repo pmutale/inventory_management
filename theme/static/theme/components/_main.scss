@@ -68,3 +68,12 @@ a {
     text-decoration: none !important;
   }
 }
+
+.inventories.container > .row {
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.bg-developers {
+  background-color: #ffba6929;
+}
