@@ -8,4 +8,4 @@ In addition to tracking items in stock, the application contains tools for track
 Instances.
 
 - Development version: https://i-development.herokuapp.com/
-- Development version: https://i-production.herokuapp.com
+- Staged for Production version: https://i-production.herokuapp.com
