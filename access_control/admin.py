@@ -19,19 +19,20 @@ class UserAdmin(BaseUserAdmin):
 @admin.register(Department)
 class DepartmentAdmin(admin.ModelAdmin):
     can_add = True
-    list_display = ('name', 'team')
+    list_display = ("name", "team")
 
 
 @admin.register(Team)
 class TeamAdmin(admin.ModelAdmin):
     can_add = True
-    list_display = ('name', 'field_manager')
+    list_display = ("name", "field_manager")
 
 
 @admin.register(FieldManager)
 class FieldManagerAdmin(admin.ModelAdmin):
     can_add = True
-    list_display = ('user', )
+    list_display = ("user",)
+
 
 admin.site.unregister(User)
 admin.site.register(User, UserAdmin)

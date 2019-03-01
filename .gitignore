@@ -107,3 +107,5 @@ node_modules/
 package-lock.json
 webpack-stats.json
 /static
+media
+staticfiles
