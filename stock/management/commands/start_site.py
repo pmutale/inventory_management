@@ -84,9 +84,12 @@ class Command(BaseCommand):
             page.set_as_homepage() if PAGES[item]["home"] else None
 
             # Publish Pages
-            user = User.objects.first()
-            api.publish_page(page=page, user=user, language=DEFAULT_LANG)
-            logger.info(page)
+            try:
+                user = User.objects.first()
+                api.publish_page(page=page, user=user, language=DEFAULT_LANG)
+                logger.info(page)
+            except PermissionError:
+                continue
 
             # Add Child pages for Categories
             if PAGES[item]["child"]:
