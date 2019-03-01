@@ -45,4 +45,4 @@ INVENTORY = dict(
     staples=dict(item="Nietmachines, tapedispensers en perforatoren"),
 )
 
-image = "media/Computerbenodigheden/2019/02/25/_49A2386.jpg"
+image = "theme/static/theme/media/_49A2386.jpg"
