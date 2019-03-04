@@ -5,7 +5,7 @@ Keep track of office inventory and stay on top of your ordering with this access
 
 In addition to tracking items in stock, the application contains tools for tracking stock reorder level, reorder time, quantity to reorder, and whether item is discontinued.
 
-Congributing?
+Contributing?
 https://github.com/pmutale/inventory_management/wiki/Contributing%3F
 
 Instances.
