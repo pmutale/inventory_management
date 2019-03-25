@@ -1,18 +1,29 @@
-image: python:3.5.1
+image: python:3.6.8
 
 pipelines:
   default:
     - step:
-        caches:
-          - pip
-        script:
-          - pip install -r requirements.txt
-    - step:
         name: Test
-        deployment: test
         script:
-        - echo "Test"
-        - pip install -r requirements.txt
-        - python manage.py test
-        - python -m pip install flake8
-        - flake8 .
+          - echo "Test"
+          - uname -v
+          - touch ~/.pgpass
+          - echo -e "localhost:5432:$POSTGRES_DB:$POSTGRES_USER:$POSTGRES_PASSWORD:True" >>  ~/.pgpass
+          - pip install -U setuptools
+          - python -m pip install --upgrade pip
+          - python -m pip install -r requirements/bitbucket.txt
+          - python manage.py test
+          - python -m pip install flake8
+          - flake8 .
+        services:
+          - postgres
+
+definitions:
+  services:
+    postgres:
+      image: postgres
+      variables:
+        POSTGRES_DB: $POSTGRES_DB
+        POSTGRES_USER: $POSTGRES_USER
+        POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+

@@ -35,7 +35,6 @@ djangocms-style==2.1.0
 djangocms-text-ckeditor==3.7.0
 djangocms-video==2.1.1
 djangorestframework==3.9.1
-easy-thumbnails==2.6
 gunicorn==19.9.0
 html5lib==1.0.1
 idna==2.8
@@ -55,4 +54,3 @@ toml==0.10.0
 Unidecode==1.0.23
 urllib3==1.24.1
 webencodings==0.5.1
-whitenoise==4.1.2
