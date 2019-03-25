@@ -1,0 +1,79 @@
+//@import url('https://fonts.googleapis.com/css?family=Exo|Open+Sans');
+//@import url('https://fonts.googleapis.com/css?family=Open+Sans:300i');
+//@import url('https://fonts.googleapis.com/css?family=Exo|Open+Sans:300i');
+@import url('https://fonts.googleapis.com/css?family=Exo:100,400,700|Open+Sans:300,400');
+
+body {
+  font-family: $font-family-base;
+  color: black;
+  h1 {
+    //size: 2em;
+  }
+  h2 {
+    //size: 1.5em;
+  }
+  h3 {
+    //size: 1em;
+    font-weight: 700;
+  }
+  h4 {
+    //size: 0.5em;
+    font-weight: 100 ;
+  }
+  h5 {
+    color: $h1 ;
+    //size: 0.25em;
+  }
+}
+
+.aside_content, .content {
+  //width: 50%;
+  position: fixed;
+  z-index: 1;
+}
+
+.left {
+  left: 0;
+  //background-color: red;
+}
+
+.right {
+  right: 0;
+  //background-color: green;
+}
+
+@media all and (min-width: 600px) {
+  .aside { flex: 1 0 0; }
+}
+
+
+.vertical_divider {
+  border-left: 1px solid lightgray;
+  height: 500px;
+  position: absolute;
+  left: 60%;
+  margin-left: -3px
+}
+
+@media all and (width: 800px) {
+  .header {order: 1}
+  .content {flex: 3px 0}
+  .aside_content {order: 2}
+  .footer { order: 3}
+}
+
+a {
+  &:hover {
+    color: transparent;
+    text-decoration: none !important;
+  }
+}
+
+.inventories.container > .row {
+    flex-wrap: nowrap;
+    overflow: hidden;
+}
+
+.bg-developers {
+  background-color: #ffba6929;
+}

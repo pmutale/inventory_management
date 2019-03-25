@@ -1,0 +1,31 @@
+{% load sass_tags sekizai_tags static i18n cms_tags %}
+
+{% if user.is_authenticated %}
+    <div class="d-flex flex-column flex-md-row align-items-center p-3 px-md-4 bg-white border-bottom box-shadow">
+        <h5 class="my-0 mr-md-auto font-weight-normal">
+            <a href="{% page_url 'home' %}">
+                <img src="{% static 'theme/images/logo.png'  %}" width="30" height="27">
+            </a>
+        </h5>
+        <nav class="container d-flex flex-column flex-md-row justify-content-between">
+            {% page_attribute "slug" as slug %}
+            <a class="p-2">{% block item %}<h3>{{ slug|capfirst }}</h3>{% endblock %}</a>
+            <a id="addItem" class="p-2">
+                <div class="row">
+                    <div class="col-xs-1"><i class="large add circle icon"></i></div>
+                    <div class="col-xs-6">{% block add_item %}<h4>{% trans "Add item" %}</h4>{% endblock %}</div>
+                </div>
+
+            </a>
+            <a class="p-2">
+                <div class="row">
+                    <div class="col-xs-1"><i class="large user circle icon"></i></div>
+                    <div class="col-xs-6"><h4><i>{% if user.is_authenticated %} {{ user.get_full_name }} {% endif %}</i></h4></div>
+                </div>
+            </a>
+            <a class="p-2" href="{% url 'access_control:user_logout' %}">
+                <h4 class="text text-danger">{% trans "Log out" %}</h4>
+            </a>
+        </nav>
+    </div>
+{% endif %}
