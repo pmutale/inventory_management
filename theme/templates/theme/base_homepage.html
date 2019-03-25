@@ -1,0 +1,38 @@
+{% extends 'theme/base.html' %}
+{% load cms_tags sekizai_tags static %}
+{% block portal %}
+    <div class="album py-5 bg-developers">
+        <div class="inventories container">
+        <div class="row">
+                {% placeholder "inventories" %}
+        </div>
+        </div>
+    </div>
+
+
+    <div class="container">
+        {% block categories %} {% endblock %}
+        <div class="d-md-flex flex-md-equal w-100 my-md-3 pl-md-3">
+            <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
+                {% block content %} {% endblock %}
+            </div>
+            <div class="mr-md-3 pt-3 px-3 pt-md-5 px-md-5 overflow-hidden">
+                {% block aside %} {% endblock %}
+            </div>
+        </div>
+    </div>
+    {% addtoblock "js" %}
+        <script
+                src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
+                integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
+                crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+                crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+                crossorigin="anonymous"></script>
+    {% endaddtoblock %}
+{% endblock %}
+
+
