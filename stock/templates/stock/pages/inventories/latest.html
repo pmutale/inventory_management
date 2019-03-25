@@ -1,0 +1,21 @@
+{% load sekizai_tags static i18n thumbnail cms_tags %}
+
+{% if user.is_authenticated %}
+    <div class="col-md-4">
+        <div class="card mb-4 box-shadow">
+            <a href="{{ latest.page_url.get_absolute_url }}">
+                {% thumbnail latest.image "341x227" upscale='True' crop='center' as image %}
+                    <img class="card-img-top"  src="{{ image.url }}" alt="{{ latest.item }}">
+                {% endthumbnail %}
+                <div class="card-body">
+                    <h5 class="card-text">{{ latest.item }}</h5>
+                    <h6 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text text-info">{% trans 'Categories' %}</span>
+                        <span class="badge badge-secondary badge-pill">{{ categories }}</span>
+                    </h6>
+                </div>
+            </a>
+        </div>
+    </div>
+{% endif %}
+
