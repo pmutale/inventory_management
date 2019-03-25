@@ -1,0 +1,8 @@
+{% load sekizai_tags static i18n %}
+
+{% addtoblock "recent_items" %}
+    {% if user.is_authenticated %}
+        <h5 class="font-weight-bolder">{% trans "Recently Added" %}</h5>
+    {% endif %}
+
+{% endaddtoblock %}
