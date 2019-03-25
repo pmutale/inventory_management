@@ -8,3 +8,4 @@ elif os.environ.get("IS_GITBUCKET", None):
     from settings.pipeline.bitbucket import *
 else:
     from settings.pipeline.dev import *
+
