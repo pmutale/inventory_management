@@ -1,5 +1,10 @@
-from settings.helpers import read_pgpass
 from settings.pipeline.prod import *
+
+from settings.helpers import read_pgpass
+
+ALLOWED_HOSTS = ['*']
+
+DEBUG = False
 
 DATABASES = {
     "default": read_pgpass(

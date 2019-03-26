@@ -1,5 +1,6 @@
 from settings.core import *
 
+
 INSTALLED_APPS = [
     "djangocms_admin_style",
     "django.contrib.admin",
@@ -31,7 +32,7 @@ INSTALLED_APPS = [
     # ThirdParty
     "sass_processor",
     "sekizai",
-    "sorl.thumbnail",
+    # "sorl.thumbnail",
     "rest_framework",
     "webpack_loader",
     "rest_framework.authtoken",
@@ -46,6 +47,12 @@ THUMBNAIL_PROCESSORS = (
     "filer.thumbnail_processors.scale_and_crop_with_subject_location",
     "easy_thumbnails.processors.filters",
 )
+
+THUMBNAIL_ALIASES = {
+    '': {
+        'default': {'size': (341, 227), 'crop': True},
+    },
+}
 
 STATIC_ROOT = os.path.join(BASE_DIR, "staticfiles")
 
@@ -122,6 +129,7 @@ DATABASES = {
         "NAME": os.path.join(BASE_DIR, "db.sqlite3"),
     }
 }
+
 
 LANGUAGES = [("en", "English"), ("nl", "Nederlands")]
 
@@ -242,11 +250,4 @@ REST_FRAMEWORK = {
     "DEFAULT_PERMISSION_CLASSES": ("rest_framework.permissions.IsAuthenticated",),
 }
 
-THUMBNAIL_HIGH_RESOLUTION = True
 
-THUMBNAIL_PROCESSORS = (
-    "easy_thumbnails.processors.colorspace",
-    "easy_thumbnails.processors.autocrop",
-    "filer.thumbnail_processors.scale_and_crop_with_subject_location",
-    "easy_thumbnails.processors.filters",
-)

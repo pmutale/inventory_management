@@ -7,6 +7,7 @@ class Employee(models.Model):
     department = models.ForeignKey(
         "Department", on_delete=models.CASCADE, null=True, blank=True
     )
+    email_confirmed = models.BooleanField(default=False)
 
     def __str__(self):
         return self.user.get_full_name()

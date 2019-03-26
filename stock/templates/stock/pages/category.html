@@ -1,0 +1,54 @@
+<div class="container">
+    <div class="mt-5">
+        <H4>Description</H4>
+    </div>
+    <div class="row mt-3">
+        <div class="col-sm-6">
+            <div class="card bg-light mb-3">
+                <div class="card-header">In voorraad</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ graph |safe }}
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="card bg-light mb-3">
+                <div class="card-header">Uitgeleend</div>
+                <div class="card-body">
+                    <p class="card-text">
+                        {{ graph_bar |safe }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <h4 class="mt-5">All { ... }</h4>
+    <div class="container mb-lg-5 mb-md-5">
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Name</th>
+                <th scope="col">Serial number</th>
+                <th scope="col">Purchase Date</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for prd in product.values %}
+                    {% with forloop.counter0 as counter %}
+                        {% for item in prd %}
+                            <tr>
+                                <th scope="row">{{ counter }}</th>
+                                <td>{{ item.name }}</td>
+                                <td>{{ item.serial_number }}</td>
+                                <td>{{ item.purchase_date }}</td>
+                            </tr>
+                        {% endfor %}
+                    {% endwith %}
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>

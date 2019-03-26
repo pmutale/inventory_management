@@ -9,11 +9,6 @@ config.mode = "production";
 
 config.output.path = require("path").resolve("staticfiles/bundles");
 
-config.entry = {
-  login: "../frontend/src/react/app",
-  semantic: "semantic-ui-css/semantic.min.css"
-};
-
 config.plugins = config.plugins.concat([
   new BundleTracker({filename: "./webpack-stats-prod.json"}),
   new MiniCssExtractPlugin({
@@ -43,7 +38,12 @@ config.optimization.minimizer.push(
 
 // Add a loader for JSX files
 config.module.rules.push(
-  { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
+  {
+    test: /\.jsx?$/,
+    exclude: /node_modules/,
+    use: ['babel-loader', 'react-hot-loader/webpack' ],
+    // loader: "babel-loader"
+  },
   {
         test: /\.css$/,
         use: [

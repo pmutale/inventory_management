@@ -16,19 +16,31 @@ Including another URLconf
 from cms.sitemaps import CMSSitemap
 
 from django.conf import settings
+from django.conf.urls.i18n import i18n_patterns
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
 from django.contrib.sitemaps.views import sitemap
+from django.views.i18n import JavaScriptCatalog
 
 urlpatterns = [
+    path('jsi18n/', JavaScriptCatalog.as_view(), name='javascript-catalog'),
+    path('sitemap.xml/', sitemap, {'sitemaps': {'cmspages': CMSSitemap}}),
     path('admin/', admin.site.urls),
     path('theme/', include('theme.urls')),
     path('stock/', include('stock.urls')),
     path('users/', include('access_control.urls')),
-    path('sitemap.xml/', sitemap, {'sitemaps': {'cmspages': CMSSitemap}}),
-    path('', include('cms.urls'))
+    path('', include('cms.urls')),
+
 ]
+
+# urlpatterns += i18n_patterns(
+#     path('admin/', admin.site.urls),
+#     path('theme/', include('theme.urls')),
+#     path('stock/', include('stock.urls')),
+#     path('users/', include('access_control.urls')),
+#     path('', include('cms.urls')),
+# )
 
 if settings.DEBUG:
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)

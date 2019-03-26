@@ -1,4 +1,4 @@
-{% load sass_tags static %}
+{% load sass_tags static sekizai_tags %}
 {% load render_bundle from webpack_loader %}
 
 <div class="container text-center mt-5 container h-100 align-content-center">
@@ -7,3 +7,6 @@
     <div class="row h-50 justify-content-center align-items-center" id="portal"></div>
 </div>
 
+{% addtoblock 'js' %}
+    {% render_bundle 'login' 'js' %}
+{% endaddtoblock %}

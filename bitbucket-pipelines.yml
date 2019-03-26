@@ -1,28 +1,39 @@
 image: python:3.6.8
 
+clone:
+  depth: full
+
 pipelines:
   default:
     - step:
         name: Test
         script:
-          - echo "Test"
-          - uname -v
           - touch ~/.pgpass
           - echo -e "localhost:5432:$POSTGRES_DB:$POSTGRES_USER:$POSTGRES_PASSWORD:True" >>  ~/.pgpass
           - pip install -U setuptools
           - python -m pip install --upgrade pip
           - python -m pip install -r requirements/bitbucket.txt
-          - python manage.py test
+          - python manage.py test access_control.tests.TestAccessControl.test_create_employee
           - python -m pip install flake8
           - flake8 .
         services:
           - postgres
+    - step:
+        name: Deploy to Heroku Development
+        script:
+          - git push https://heroku:$HEROKU_API_KEY@git.heroku.com/$HEROKU_APP_NAME.git HEAD:development
+tags:
+  node6:
+    - step:
+        image: node:6
+        script:
+          - npm run build-production
 
 definitions:
   services:
     postgres:
       image: postgres
-      variables:
+      environment:
         POSTGRES_DB: $POSTGRES_DB
         POSTGRES_USER: $POSTGRES_USER
         POSTGRES_PASSWORD: $POSTGRES_PASSWORD

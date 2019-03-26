@@ -1,5 +1,7 @@
+{% load i18n %}
+
 {% autoescape off %}
-    Hi {{ user.username }},
-    Please click on the link to confirm your registration,
-    http://{{ domain }}{% url 'activate' uidb64=uid token=token %}
+    {% trans "Hi" %} {{ user.username }},
+    {% trans "Please click on the link to confirm your Developers Inventory registration" %}
+    http://{{ domain }}{% url 'access_control:activate' uuid=uuid token=token %}
 {% endautoescape %}

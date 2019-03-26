@@ -24,7 +24,8 @@ class TestAccessControl(APITestCase):
 
     def test_list(self):
         request = self.client.get(
-            self.client.get('path', None), HTTP_AUTHORIZATION="Token {}".format(self.token.key)
+            self.client.get("path", None),
+            HTTP_AUTHORIZATION="Token {}".format(self.token.key),
         )
         request.user = self.user
         response = self.client.request()
@@ -40,11 +41,15 @@ class TestAccessControl(APITestCase):
         """
         Ensure we can create a new account object.
         """
-        url = reverse('access_control:user_create')
-        data = {'username': 'inventoryUser', 'password': 'test'}
-        response = self.client.post(url, data, format='json')
+        url = reverse("access_control:user_create")
+        data = {
+            "username": "inventoryUser",
+            "password": "test123456789",
+            "email": "example@developers.nl",
+            "first_name": "Example",
+            "last_name": "Test",
+        }
+        response = self.client.post(url, data, format="json")
         self.assertEqual(response.status_code, status.HTTP_201_CREATED)
         self.assertEqual(Employee.objects.count(), 1)
-        self.assertEqual(Employee.objects.get().name, 'inventoryUser')
-
-
+        self.assertEqual(Employee.objects.get().user.username, "inventoryUser")

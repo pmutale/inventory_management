@@ -32,3 +32,23 @@ class AudioVisualBrandList(generics.ListCreateAPIView):
 class AudioVisualBrandDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = audio_visual.Brand.objects.all()
     serializer_class = serializers.AudioVisualBrandSerializer
+
+
+class AudioVisualKindScreenTypeList(generics.ListCreateAPIView):
+    queryset = audio_visual.ScreenType.objects.all()
+    serializer_class = serializers.ScreenTypeSerializer
+
+
+class AudioVisualKindScreenTypeDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = audio_visual.ScreenType.objects.all()
+    serializer_class = serializers.ScreenTypeSerializer
+
+
+class AudioVisualKindMountingList(generics.ListCreateAPIView):
+    queryset = audio_visual.ScreenMountingMethod.objects.all()
+    serializer_class = serializers.MountingMethodSerializer
+
+
+class AudioVisualKindMountingDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = audio_visual.ScreenMountingMethod.objects.all()
+    serializer_class = serializers.MountingMethodSerializer

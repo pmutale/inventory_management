@@ -1,11 +1,26 @@
 {% extends 'theme/base.html' %}
-{% load cms_tags sekizai_tags static %}
+{% load cms_tags sekizai_tags static sass_tags %}
 {% block portal %}
-    <div class="album py-5 bg-developers">
-        <div class="inventories container">
-        <div class="row">
-                {% placeholder "inventories" %}
+    <div class="slide album py-5 bg-developers">
+        <div class="inventories container-fluid">
+            <div id="myInventoryCarousel" class="carousel slide" data-ride="carousel">
+                <div class="carousel-inner row w-100 mx-auto">
+                    {% placeholder "inventories" %}
+                </div>
+            </div>
         </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12 text-center mt-4">
+                <a id='prevInventory' class="btn btn-outline-secondary mx-1 prev" href="javascript:void(0)" title="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+                <a id="nextInventory" class="btn btn-outline-secondary mx-1 next" href="javascript:void(0)" title="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </div>
         </div>
     </div>
 
@@ -21,18 +36,6 @@
             </div>
         </div>
     </div>
-    {% addtoblock "js" %}
-        <script
-                src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-                integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-                crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
-                integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-                crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
-                integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-                crossorigin="anonymous"></script>
-    {% endaddtoblock %}
 {% endblock %}
 
 

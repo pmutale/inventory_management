@@ -6,7 +6,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
+    <link rel="shortcut icon" type="image/png" href="{% static 'theme/images/logo.png' %}"/>
     <title>Inventory: {% page_attribute "page_title" %}</title>
     {% render_block "css" %}
     {% render_bundle 'semantic' 'css' %}
@@ -21,8 +21,8 @@
 {% else %}
     {% include 'theme/pages/login.html' %}
 {% endif %}
+{% include 'theme/others/scripts.html' %}
 {% render_block "js" %}
-{% render_bundle 'login' 'js' %}
 {% render_bundle 'semantic' 'js' %}
 
 </body>

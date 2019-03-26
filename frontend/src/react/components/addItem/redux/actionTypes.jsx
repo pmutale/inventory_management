@@ -1,0 +1,11 @@
+// Post Product
+export const ADD_PRODUCT = "ADD_PRODUCT";
+
+// Sucees Report
+export const ACTION_PRODUCT_SUCCESS = "ACTION_PRODUCT_SUCCESS";
+export const ACTION_PRODUCT_FAILURE = "ACTION_PRODUCT_FAILURE";
+
+// Delete Product
+export const DELETE_PRODUCT = "DELETE_PRODUCT";
+export const EDIT_PRODUCT = "EDIT_PRODUCT";
+export const FILTER_PRODUCT_FORM = "FILTER_PRODUCT_FORM";

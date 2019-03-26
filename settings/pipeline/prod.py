@@ -1,7 +1,8 @@
 from settings.pipeline.base import *
-import sentry_sdk
 
 import django_heroku
+
+DEBUG = False
 
 WEBPACK_LOADER = {
     "DEFAULT": {
@@ -11,3 +12,10 @@ WEBPACK_LOADER = {
 }
 
 django_heroku.settings(locals())
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+EMAIL_HOST_USER = "p.mutale@developers.nl"
+EMAIL_HOST_PASSWORD = "cnggiwselgiccmip"

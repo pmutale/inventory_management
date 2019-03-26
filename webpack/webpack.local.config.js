@@ -5,19 +5,9 @@ const ExtractTextPlugin = require("extract-text-webpack-plugin");
 const config = require("./webpack.base.config.js");
 
 config.mode = "development";
-// Use webpack dev server
-config.entry = {
-  hotLoader: 'webpack/hot/dev-server',
-  login: "../frontend/src/react/app",
-  semantic: "semantic-ui-css/semantic.min.css"
-};
-  // "webpack-dev-server/client?http://0.0.0.0:7070/",
-  // "webpack/hot/only-dev-server",
-  // "react-hot-loader/patch",
-// ];
 
 // override django"s STATIC_URL for webpack bundles
-config.output.publicPath = "http://inventory.developers.localhost:7070/static/bundles/";
+config.output.publicPath = "http://inventory.developers.localhost:8080/static/bundles/";
 
 config.plugins = config.plugins.concat([
   new webpack.HotModuleReplacementPlugin(),
@@ -27,9 +17,14 @@ config.plugins = config.plugins.concat([
    }),
 ]);
 
-// Add a loader for JSX files with react-hot enabled
+config.devServer.hot = true;
+
 config.module.rules.push(
-  { test: /\.jsx?$/, exclude: /node_modules/, loader: "babel-loader" },
+  {
+    test: /\.jsx?$/,
+    exclude: /node_modules/,
+    use: ['babel-loader', 'react-hot-loader/webpack' ],
+  },
   { test: /\.(scss|css)$/, use: ExtractTextPlugin.extract({
           fallback: "style-loader",
           use: ["css-loader", "sass-loader"]
