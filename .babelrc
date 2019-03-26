@@ -1,8 +1,13 @@
 {
-    "presets": [
-      "es2015", "react"
-    ],
+  "presets": [
+    "env", "react", "es2015", "stage-0"
+  ],
   "plugins": [
-    ["react-hot-loader/babel"]
+    [
+      "transform-es2015-destructuring", "transform-object-rest-spread",",react-hot-loader/babel",
+      {
+        "safetyNet": false
+      }
+    ]
   ]
 }

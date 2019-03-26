@@ -1,12 +1,12 @@
-{% load sekizai_tags static i18n thumbnail cms_tags %}
+{% load sekizai_tags static i18n thumbnail cms_tags sass_tags %}
 
 {% if user.is_authenticated %}
-    <div class="inventory col-md-4">
+    <div class="carousel-item col-md-4 {% if instance.cmsplugin_ptr_id == 1 %}active{% endif %}">
         <div class="card mb-4 box-shadow">
             <a href="{{ instance.page_url.get_absolute_url }}">
-                {% thumbnail instance.image "341x227" upscale='True' crop='center' as image %}
-                    <img class="card-img-top"  src="{{ image.url }}" alt="{{ instance.item }}">
-                {% endthumbnail %}
+                <img class="card-img-top"
+                     src="{% thumbnail instance.image 341x227 upscale crop %}"
+                     alt="{{ instance.item }}">
                 <div class="card-body">
                     <h5 class="card-text">{{ instance.item }}</h5>
                     <h6 class="d-flex justify-content-between align-items-center mb-3">
@@ -17,5 +17,12 @@
             </a>
         </div>
     </div>
+    {% addtoblock "css" %}
+        <link rel="stylesheet" href="{% sass_src "theme/stock/categories.scss" %}" type="text/css">
+    {% endaddtoblock %}
+
+    {% addtoblock "js" %}
+        <script type="text/javascript" src="{% static 'theme/js/categories.js' %}"></script>
+    {% endaddtoblock %}
 {% endif %}
 

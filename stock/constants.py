@@ -1,48 +1,47 @@
-INVENTORY = dict(
-    audio_visual=dict(item="Audiovisuele apparatuur"),
-    binding_material=dict(item="Bindmiddelen en klemborden"),
-    boards=dict(item="Borden en schildersezels"),
-    calendars=dict(item="Kalenders en planners"),
-    clips=dict(item="Clips, drukknoppen en elastiekjes"),
-    clocks=dict(item="Klokken en tijdkloksystemen"),
-    computers=dict(
-        item="Computerbenodigdheden en media",
-        categories=[
-            "Hubs voor cd en dvd",
-            "Opslag van cd's en dvd's",
-            "CD-, DVD- en USB-duplicators",
-            "Cd's en dvd's",
-            "Computer kabeladapters en splitsers",
-            "Computerkabels",
-            "Computer muizen",
-            "Computermonitor armen",
-            "Filters voor computerscherm",
-            "Bureaus en staanders",
-            "Flash-drives en geheugenkaarten",
-            "GPIB-netwerkhardware",
-            "KVM-switches",
-            "Toetsenbord- en muissets",
-            "Toetsenborden",
-            "Laptoptassen en koffers",
-            "Muismatten",
-            "Opladers voor smartphones en tablets",
-            "Hoesjes voor tablets, houders en schermbeschermers",
-            "Tablet-stylus en touchscreen-pennen",
-            "USB-kabels",
-            "USB-connectoren en hubs",
-        ],
-    ),
-    covers=dict(item="Covers, schermen en kaders van documenten"),
-    maps=dict(item="Bestandsmappen en kaders"),
-    flags=dict(item="Vlaggen, vlaggenmasten en accessoires"),
-    print_material=dict(item="Inkt en tonercartridges"),
-    laminate=dict(item="Lamineer- en bindapparatuur"),
-    cleaning_stuf=dict(item="Kantoorschoonmaakbedrijven"),
-    office_machines=dict(item="Kantoormachines en -apparatuur"),
-    office_paper=dict(item="Kantoorpapier en laptops"),
-    stamps=dict(item="Stempels en inktkussens"),
-    batteries=dict(item="Standaard batterijen"),
-    staples=dict(item="Nietmachines, tapedispensers en perforatoren"),
-)
+import os
+from collections import namedtuple
+from PIL import Image
 
-image = "theme/static/theme/media/_49A2386.jpg"
+from django.utils.translation import gettext as _
+from easy_thumbnails.files import get_thumbnailer
+
+from settings import BASE_DIR
+
+INVENTORY = {
+    "audio_visual": {
+        "item": _("Audiovisual Equipment"),
+        "child": [("name", _("All Audio Visual")), ],
+    },
+    "computers": {
+        "item": _("Computer and Media supplies"),
+        "child": [("name", _("All Computer and Media Supplies")), ],
+    },
+    "print_material": {
+        "item": _("Ink and Catridges"),
+        "child": [("name", _("All Ink and Catridges")), ],
+    },
+    "cleaning_stuf": {
+        "item": _("Office Cleaning"),
+        "child": [("name", _("All Office Cleaning")), ],
+    },
+}
+
+default_foto = "theme/static/theme/images/_49A2386.jpg"
+
+# default_foto.thumbnail(20, 20)
+# default_foto.save()
+url = Image.open(os.path.join(BASE_DIR, default_foto))
+url.thumbnail((341, 227))
+
+image = url
+
+URL = dict(audio_visual="audio_visual", computer="computer")
+SCREEN = {
+    "SCREEN_TYPES": {"name": "", "desc": ""},
+    "SCREEN_MOUNTING_METHODS": {"name": "", "desc": ""},
+}
+
+SCREEN_TYPES = namedtuple("ScreenTypes", "name description")
+SCREEN_MOUNTING_METHODS = namedtuple("ScreenMethods", "name description")
+SCREEN_TYPES.name = [_("LCD"), _("LED"), "AM0LED", "Vinyl", "Vinyl Matt"]
+SCREEN_MOUNTING_METHODS.name = [_("Tripod"), _("Wall Mounted")]

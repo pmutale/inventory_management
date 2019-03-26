@@ -5,6 +5,8 @@ from django.utils.translation import gettext as _
 from rest_framework import status
 from rest_framework.views import APIView
 
+from access_control.exceptions import UserEmailNotConfirmedException
+
 
 class LoginView(APIView):
     permission_classes = ()
@@ -16,8 +18,13 @@ class LoginView(APIView):
         user = authenticate(username=username, password=password)
 
         if user:
-            login(request, user)
+
             try:
+                if user.employee.email_confirmed:
+                    login(request, user)
+                else:
+                    message = _('Please comfirm your account. Check your email!')
+                    raise UserEmailNotConfirmedException(message)
                 response["token"] = user.auth_token.key
                 response["status"] = status.HTTP_200_OK
                 return JsonResponse(response)

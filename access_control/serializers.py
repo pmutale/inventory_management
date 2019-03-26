@@ -9,6 +9,7 @@ from rest_framework import serializers
 from rest_framework.authtoken.models import Token
 from django.utils.translation import ugettext as _
 
+from access_control.helpers import account_activation_token
 from access_control.models import Employee
 from access_control.validators import ValidatePasswordStrength
 
@@ -25,7 +26,7 @@ class UserSerializer(serializers.ModelSerializer):
         }
 
     def create(self, validated_data):
-        context = {"username": None, "success": False, "error": False}
+        context = {"success": False, "error": False}
         try:
             user = User(
                 email=validated_data["email"],
@@ -41,26 +42,26 @@ class UserSerializer(serializers.ModelSerializer):
             Token.objects.create(user=user)
 
             #  # TODO Email activation in production
-            # current_site = get_current_site()
-            # mail_subject = 'Activate your blog account.'
-            # message = render_to_string('acc_active_email.html', {
-            #     'user': user,
-            #     'domain': current_site.domain,
-            #     'uid': urlsafe_base64_encode(force_bytes(user.pk)).decode(),
-            #     'token': Token.objects.filter(user=user).values_list('key', flat=True),
-            # })
-            # to_email = validated_data['email']
-            # email = EmailMessage(
-            #     mail_subject, message, to=[to_email]
-            # )
-            # email.send()
-            # #
-
+            current_site = get_current_site()
+            mail_subject = "Activate your Developers Inventory account."
+            message = render_to_string(
+                "access_control/acc_activate_email.html",
+                {
+                    "user": user,
+                    "domain": current_site.domain,
+                    "uuid": urlsafe_base64_encode(force_bytes(user.pk)).decode(),
+                    "token": account_activation_token.make_token(user),
+                },
+            )
+            to_email = user.email
+            email = EmailMessage(mail_subject, message, to=[to_email])
+            email.send()
             setattr(
                 JsonResponse,
                 "username",
                 _(
-                    f"User with username, {user.username} has been successfully created."
+                    f"User with username, {user.username} has been successfully created. "
+                    f"Visit your email, {user.email} to activate your account"
                 ),
             )
             return JsonResponse

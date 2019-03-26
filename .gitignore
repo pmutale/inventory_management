@@ -109,3 +109,6 @@ webpack-stats.json
 /static
 media
 staticfiles
+node_modules/
+media/
+staticfiles/

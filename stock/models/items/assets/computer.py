@@ -46,22 +46,22 @@ class Details(ItemBaseModel):
         return F"{self.model}-{self.serial_number}"
 
 
-class Image(models.Model):
-    computer = models.ForeignKey(
-        "Computer",
-        related_name="images",
-        on_delete=models.CASCADE,
-        null=True,
-        blank=True,
-    )
-    file = models.ImageField(blank=True, upload_to=get_upload_path, null=True)
-    position = models.PositiveSmallIntegerField(default=0)
-
-    class Meta:
-        ordering = ["position"]
-
-    def __str__(self):
-        return f"{self.computer.details.name} - {self.computer.type} - {self.computer.details.serial_number}"
+# class Image(models.Model):
+#     computer = models.ForeignKey(
+#         "Computer",
+#         related_name="images",
+#         on_delete=models.CASCADE,
+#         null=True,
+#         blank=True,
+#     )
+#     file = models.ImageField(blank=True, upload_to=get_upload_path, null=True)
+#     position = models.PositiveSmallIntegerField(default=0)
+#
+#     class Meta:
+#         ordering = ["position"]
+#
+#     def __str__(self):
+#         return f"{self.computer.details.name} - {self.computer.type} - {self.computer.details.serial_number}"
 
 
 class PeripheralDetails(Details):

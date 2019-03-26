@@ -1,4 +1,5 @@
 {% load query thumbnail cms_tags i18n sekizai_tags sass_tags static %}
+{% load render_bundle from webpack_loader %}
 
 {% if user.is_authenticated %}
     {% query category inventory__item__contains=instance.search_field as categories %}
@@ -6,18 +7,26 @@
         <div class="container">
             <div class="row">
                 {% for categor in categories %}
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <div class="card mb-4 box-shadow">
-                            {% thumbnail categor.image "341x227" upscale='True' crop='center' as image %}
-                                <img class="card-img-top"  src="{{ image.url }}" alt="{{ categor.item }}">
-                            {% endthumbnail %}
+                                <a href="{{ instance.page_url.get_absolute_url }}"> <img class="card-img-top"
+                                     src="{% thumbnail categor.image 341x227 upscale='True' crop='center' %}"
+                                     alt="{{ categor.item }}"></a>
                             <div class="card-body">
                                 <h6>{{ categor.name }}</h6>
                                 <p class="card-text">{{ categor.description }}</p>
                             </div>
                             <div class="card-footer">
-                                <i class="small add circle icon"></i>
-                                <a href="#"><small class="text-muted">{% trans 'Add item' %}</small></a>
+                                <div id="addItemModalPoint" data-item="{{ categor.name }}" data-id="{{ categor.id }}">
+                                    <a href='' id="link" class="float-left">
+                                        <i class='add circle icon'></i>Add {{ categor.name }}</a>
+                                    <div id="add_item"
+                                         data-page-instance="{{ current_page.get_slug  }}"
+                                         data-item="{{ categor.name }}"
+                                         data-category="{{ categor.name|lower }}"
+                                         data-url="{% if not instance.slug == 'example' %}{% url instance.get_slug %}{% endif %}">
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -25,9 +34,8 @@
             </div>
         </div>
     </div>
-
-    {% addtoblock "css" %}
-        <link rel="stylesheet" href="{% sass_src "theme/stock/categories.scss" %}">
+    {% addtoblock "js" %}
+        {% render_bundle 'add_item' 'js'%}
     {% endaddtoblock %}
 
 {% endif %}

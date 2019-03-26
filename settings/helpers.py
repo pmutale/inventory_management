@@ -58,6 +58,7 @@ def read_pgpass(dbname, host=None, port=None, engine=None, env=None):
                         PASSWORD=words[4],
                         HOST=words[0],
                         PORT=words[1],
+                        TEST=dict(NAME='test_inventory')
                     )
         print(no_database_found)
     return sys.exit(

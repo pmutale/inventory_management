@@ -15,6 +15,9 @@ class ItemBaseModel(models.Model):
     is_deleted = models.BooleanField(null=True, blank=True)
     slug = models.CharField(max_length=128, null=True, blank=True)
 
+    # class Meta:
+    #     abstract = True
+
     with atomic():
 
         def save(self, *args, **kwargs):
