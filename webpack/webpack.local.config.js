@@ -7,7 +7,7 @@ const config = require("./webpack.base.config.js");
 config.mode = "development";
 
 // override django"s STATIC_URL for webpack bundles
-config.output.publicPath = "http://inventory.developers.localhost:8080/static/bundles/";
+config.output.publicPath = "http://inventory.developers.localhost:7070/static/bundles/";
 
 config.plugins = config.plugins.concat([
   new webpack.HotModuleReplacementPlugin(),
