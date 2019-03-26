@@ -109,7 +109,7 @@ class Command(BaseCommand):
             # Publish Pages
             try:
                 user = User.objects.first()
-                api.publish_page(page=page, user=user, language=lang)
+                # api.publish_page(page=page, user=user, language=lang)
                 logger.info(page)
             except PermissionError:
                 continue
@@ -128,7 +128,7 @@ class Command(BaseCommand):
                     add_plugins_to_page(
                         placeholder_child, lang, child=True, item=title, link=child_page.reverse_id
                     )
-                    api.publish_page(page=child_page, user=user, language=lang)
+                    # api.publish_page(page=child_page, user=user, language=lang)
 
                     # child_page.update_languages(dict(settings.LANGUAGES).keys())
                     child_page.save()
@@ -161,7 +161,7 @@ class Command(BaseCommand):
                                 f"Page with url {child.get_absolute_url()} has been created. >> {lang}"
                             )
                         )
-                        api.publish_page(page=child, user=user, language=lang)
+                        # api.publish_page(page=child, user=user, language=lang)
 
                     try:
                         page.set_tree_node(site=Site.objects.first())
