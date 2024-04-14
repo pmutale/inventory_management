@@ -38,7 +38,7 @@ djangorestframework==3.9.1
 easy-thumbnails==2.6
 gunicorn==19.9.0
 html5lib==1.0.1
-idna==2.8
+idna==3.7
 libsass==0.17.0
 Markdown==3.0.1
 Pillow==6.2.0
