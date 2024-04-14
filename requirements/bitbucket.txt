@@ -37,7 +37,7 @@ djangocms-video==2.1.1
 djangorestframework==3.9.1
 gunicorn==19.9.0
 html5lib==1.0.1
-idna==2.8
+idna==3.7
 libsass==0.17.0
 Markdown==3.0.1
 Pillow==7.1.0
