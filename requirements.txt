@@ -46,13 +46,13 @@ psycopg2==2.7.7
 psycopg2-binary==2.7.7
 pytz==2018.9
 rcssmin==1.0.6
-requests==2.21.0
+requests==2.32.4
 rjsmin==1.0.12
 sentry-sdk==0.7.2
 six==1.12.0
 sorl-thumbnail==12.5.0
 toml==0.10.0
 Unidecode==1.0.23
-urllib3==1.24.1
+urllib3==2.5.0
 webencodings==0.5.1
 whitenoise==4.1.2
